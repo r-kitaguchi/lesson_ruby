@@ -6,12 +6,14 @@ memo_type = gets.to_s
 
 # クラス
 class Input
-  puts "拡張子を除いたファイル名を入力してください"
+  def comment
+    puts "拡張子を除いたファイル名を入力してください"
 
-  #入力された値を変数に格納
-  @@file_name = $stdin.gets
+    #入力された値を変数に格納
+    @@file_name = $stdin.gets
+  end
 
-  def ask_detail(edit)
+  def ask_detail(edit="")
     puts "#{edit}内容を入力してください"
     puts "完了したらcontrol + Dを押します"
   end
@@ -34,15 +36,19 @@ end
 
 # ifで条件分岐
 if memo_type.chomp == "1" then
-  sample = Input.new
-  sample.ask_detail("")
-  sample.csv("w")
-  
+  input = Input.new
+  input.comment
+  input.ask_detail
+  input.csv("w")
 elsif memo_type.chomp == "2" then
-  sample = Display.new
-  sample.csv_read
-  sample.ask_detail("追加する")
-  sample.csv("a")
-  sample.csv_read
+  display = Display.new
+  display.comment
+  display.csv_read
+  display.ask_detail("追加する")
+  display.csv("a")
+  display.csv_read
+else
+  puts "1か2を入力してください"
+  exit
 end
 
